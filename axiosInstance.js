@@ -1,7 +1,7 @@
 //axiosInstance.js
 import axios from 'axios';
 
-const baseURL = 'http://192.168.48.213:8004';
+const baseURL = 'https://back-production-57a7.up.railway.app';
 
 const axiosInstance = axios.create({
   baseURL,
