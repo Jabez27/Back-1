@@ -27,13 +27,13 @@ router.post('/register', async (req, res) => {
     }
 
     // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    //const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user
     const newUser = new User({
       username,
       email,
-      password: hashedPassword,
+      password,/*: hashedPassword*/
       classValue,
       section,
       rollNumber,
@@ -65,12 +65,12 @@ router.post('/login', async (req, res) => {
     }
 
     // Check password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
+    //const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (user.password !== password) {
       return res.status(401).json({ message: 'Invalid Password' });
     }
     // Generate token
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '4h' });
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '10h' });
     res.status(200).json({ token });
 
   } catch (error) {
