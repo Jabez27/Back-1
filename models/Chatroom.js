@@ -6,7 +6,7 @@ const chatroomSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    default: uuidv4(), // Generate a UUID for chatroomid
+    default: uuidv4, 
   },
   groupName: {
     type: String,

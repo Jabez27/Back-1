@@ -1,11 +1,12 @@
-// models/Message.js
+const Chatroom = require('../models/Chatroom');
 const mongoose = require('mongoose');
+
 
 const messageSchema = new mongoose.Schema({
   chatroomid: {
-    type: String,
     ref: 'Chatroom',
-    required: true
+    type: String,
+    required: true,
   },
   message: {
     type: String,
