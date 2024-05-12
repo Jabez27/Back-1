@@ -2,7 +2,8 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 const mongoose = require('mongoose');
-const cors = require('cors'); // Import cors module
+const cors = require('cors');
+const { json, urlencoded } = require('body-parser');
 require('dotenv').config();
 
 const app = express();
@@ -37,6 +38,7 @@ const feedRoutes = require('./routes/feedRoutes');
 const gradeRoutes = require('./routes/gradeRoutes');
 const chatroomRoutes = require('./routes/chatroomRoutes'); 
 const messageRoutes = require('./routes/messageRoutes');
+const attendanceRoutes = require('./routes/attendanceRoutes');
 
 app.use('/api/message', messageRoutes);
 app.use('/api/auth', authRoutes);
@@ -45,7 +47,7 @@ app.use('/api/homework', homeworkRoutes);
 app.use('/api/feed', feedRoutes);
 app.use('/api/grades', gradeRoutes);
 app.use('/api/chatrooms', chatroomRoutes); 
-
+app.use('/api/attendance',attendanceRoutes);
 
 const PORT = process.env.PORT || 6554;
 server.listen(PORT, () => {
