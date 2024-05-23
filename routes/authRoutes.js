@@ -1,18 +1,15 @@
-//authRouter.js
-
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
-
 router.post('/register', async (req, res) => {
   try {
-    const { username, email, password, classValue, section, rollNumber} = req.body;
+    const { username, email, password, classValue, section, rollNumber } = req.body;
 
     // Validate request body
-    if (!username || !email || !password || !classValue || !section || !rollNumber ) {
+    if (!username || !email || !password || !classValue || !section || !rollNumber) {
       return res.status(400).json({ message: 'Username, email, and password are required' });
     }
 
@@ -57,14 +54,15 @@ router.post('/login', async (req, res) => {
     }
 
     // Check password
-    //const isPasswordValid = await bcrypt.compare(password, user.password);
+    // const isPasswordValid = await bcrypt.compare(password, user.password);
     if (user.password !== password) {
       return res.status(401).json({ message: 'Invalid Password' });
     }
-    // Generate token
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '10h' });
-    res.status(200).json({ token });
 
+    // Generate token without expiration
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+
+    res.status(200).json({ token });
   } catch (error) {
     console.error('Error logging in:', error.message);
     res.status(500).json({ message: 'Internal server error' });
